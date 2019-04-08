@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using SportsStore.Domain.Abstract;
+﻿using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Models;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace SportsStore.WebUI.Controllers
 {
@@ -15,7 +15,7 @@ namespace SportsStore.WebUI.Controllers
             repository = repo;
             orderProcessor = proc;
         }
-        
+
 
 
         public ViewResult Index(Cart cart, string returnUrl)
@@ -71,7 +71,7 @@ namespace SportsStore.WebUI.Controllers
             {
                 return View(shippingDetails);
             }
+
         }
     }
 }
-  
