@@ -386,7 +386,7 @@ namespace SportsStore.UnitTests
                 // Assert - check that I am passing a valid model to the view 
                 Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
             }               
-
+            //Add Can_Add_To_Cart
         }
     }
 
