@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.WebUI.Controllers;
-using SportsStore.WebUI.Models;
 using SportsStore.WebUI.HtmlHelpers;
-using Microsoft.CSharp;
+using SportsStore.WebUI.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 
 namespace SportsStore.UnitTests
@@ -33,8 +32,10 @@ namespace SportsStore.UnitTests
             });
             // Arrange 
             ProductController controller =
-                new ProductController(mock.Object);
-            controller.PageSize = 3;
+                new ProductController(mock.Object)
+                {
+                    PageSize = 3
+                };
             // Act 
             ProductsListViewModel result = (ProductsListViewModel)controller.List(null, 2).Model;
 
@@ -59,8 +60,10 @@ namespace SportsStore.UnitTests
                     new Product {ProductID = 5, Name = "P5"}
                 });
             ProductController controller =
-                new ProductController(mock.Object);
-            controller.PageSize = 3;
+                new ProductController(mock.Object)
+                {
+                    PageSize = 3
+                };
             // Act 
             ProductsListViewModel result = (ProductsListViewModel)controller.List(null, 2).Model;
 
@@ -126,8 +129,10 @@ namespace SportsStore.UnitTests
             new Product {ProductID = 4, Name = "P4", Category = "Cat2"},
             new Product {ProductID = 5, Name = "P5", Category = "Cat3"} });
             // Arrange - create a controller and make the page size 3 items
-            ProductController controller = new ProductController(mock.Object); controller.PageSize = 3;
-            // Action
+            ProductController controller = new ProductController(mock.Object)
+            {
+                PageSize = 3
+            };             // Action
             Product[] result = ((ProductsListViewModel)controller.List("Cat2", 1).Model).Products.ToArray();
             // Assert 
             Assert.AreEqual(result.Length, 2);
@@ -171,8 +176,10 @@ namespace SportsStore.UnitTests
                     new Product {ProductID = 5, Name = "P5", Category = "Cat3"}
             });
             // Arrange - create a controller and make the page size 3 items
-            ProductController target = new ProductController(mock.Object);
-            target.PageSize = 3;
+            ProductController target = new ProductController(mock.Object)
+            {
+                PageSize = 3
+            };
             // Action - test the product counts for different categories 
             int res1 = ((ProductsListViewModel)target.List("Cat1").Model).PagingInfo.TotalItems;
             int res2 = ((ProductsListViewModel)target.List("Cat2").Model).PagingInfo.TotalItems;
@@ -272,6 +279,7 @@ namespace SportsStore.UnitTests
                 // Assert 
                 Assert.AreEqual(target.Lines.Count(), 0);
             }
+            [TestMethod]
             public void Can_Add_To_Cart()
             {
                 // Arrange - create the mock repository
@@ -311,21 +319,21 @@ namespace SportsStore.UnitTests
                 Assert.AreEqual(result.RouteValues["returnUrl"], "myUrl");
             }
             [TestMethod]
-        public void Can_View_Cart_Contents()
-        {
-            // Arrange - create a Cart
-            Cart cart = new Cart();
-            // Arrange - create the controller 
-            CartController target = new CartController(null,null);
-            // Act - call the Index action method
-            CartIndexViewModel result
-                = (CartIndexViewModel)target.Index(cart, "myUrl").ViewData.Model;
-            // Assert 
-            Assert.AreSame(result.Cart, cart);
-            Assert.AreEqual(result.ReturnUrl, "myUrl");
-        }
+            public void Can_View_Cart_Contents()
+            {
+                // Arrange - create a Cart
+                Cart cart = new Cart();
+                // Arrange - create the controller 
+                CartController target = new CartController(null, null);
+                // Act - call the Index action method
+                CartIndexViewModel result
+                    = (CartIndexViewModel)target.Index(cart, "myUrl").ViewData.Model;
+                // Assert 
+                Assert.AreSame(result.Cart, cart);
+                Assert.AreEqual(result.ReturnUrl, "myUrl");
+            }
 
-        [TestMethod]
+            [TestMethod]
             public void Cannot_Checkout_Empty_Cart()
             { // Arrange - create a mock order processor
                 Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
@@ -385,8 +393,8 @@ namespace SportsStore.UnitTests
                 Assert.AreEqual("Completed", result.ViewName);
                 // Assert - check that I am passing a valid model to the view 
                 Assert.AreEqual(true, result.ViewData.ModelState.IsValid);
-            }               
-            //Add Can_Add_To_Cart
+            }
+
         }
     }
 
