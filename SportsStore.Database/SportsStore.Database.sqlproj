@@ -61,8 +61,5 @@
   <ItemGroup>
     <None Include="CreateProductsTable.sql" />
     <None Include="InsertPrelimProductData.sql" />
-    <None Include="..\SportsStore.WebUI\Views\Product\List.cshtml">
-      <Link>List.cshtml</Link>
-    </None>
   </ItemGroup>
 </Project>
